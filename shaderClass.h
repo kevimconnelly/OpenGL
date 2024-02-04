@@ -8,7 +8,7 @@
 #include<iostream>
 #include<cerrno>
 
-std::string get_file_content(const char* filename);
+std::string get_file_contents(const char* filename);
 
 class Shader
 {
@@ -18,6 +18,9 @@ class Shader
 
 		void Activate();
 		void Delete();
+
+	private:
+		void compileErrors(unsigned int shader, const char* type);
 };
 
 
