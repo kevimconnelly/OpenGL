@@ -157,6 +157,10 @@
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Pictures\oledSwitch.jpg" />
+    <Image Include="pop_cat.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
