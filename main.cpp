@@ -18,16 +18,21 @@ const unsigned int height = 800;
 // Define the vertices of the triangle
 GLfloat vertices[] =
 {
-	-0.5f,  -0.5f,	 0.0f,		1.0f, 0.0f,  0.0f,		0.0f, 0.0f,  // Lower left
-	-0.5f,   0.5f,	 0.0f,		0.0f, 1.0f,  0.0f,		0.0f, 1.0f,  // Lower right
-	 0.5f,   0.5f,	 0.0f,		0.0f, 0.0f,  1.0f,		1.0f, 1.0f,  // Upper corner
-	 0.5f,  -0.5f,	 0.0f,		1.0f, 1.0f,  1.0f,		1.0f, 0.0f   // Inner left
+	-0.5f,   0.0f,	  0.5f,		0.83f, 0.70f,  0.44f,		0.0f, 0.0f,  
+	-0.5f,   0.0f,	 -0.5f,		0.83f, 0.70f,  0.44f,		5.0f, 0.0f, 
+	 0.5f,   0.0f,	 -0.5f,		0.83f, 0.70f,  0.44f,		0.0f, 1.0f,  
+	 0.5f,   0.0f,	  0.5f,		0.83f, 0.70f,  0.44f,		5.0f, 0.0f,  
+	 0.0f,   0.8f,    0.0f,     0.92f, 0.86f,  0.76f,       2.5f, 5.0f
 };
 
 GLuint indices[] =
 {
-	0, 2, 1, // Lower left triangle
-	0, 3, 2, // Lower right triangle
+	0, 1, 2, 
+	0, 2, 3, 
+	0, 1, 4,
+	1, 2, 4, 
+	2, 3, 4, 
+	3, 0, 4
 };
 
 int main() 
@@ -98,8 +103,18 @@ int main()
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 proj = glm::mat4(1.0f);
+
 		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
 		proj = glm::perspective(glm::radians(45.0f), (float)(width / height), 0.1f, 100.0f);
+
+		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
 
 		glUniform1f(uniID, 0.5f);
@@ -109,7 +124,7 @@ int main()
 		// Bind the VAO to openGL knows how to use it
 		VAO1.Bind();
 		//Draw the triangle using the GL_TRIANGLES primitive
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
 
 		// Have GLFW handle all events
