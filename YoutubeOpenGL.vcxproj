@@ -160,6 +160,7 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\Downloads\brick.png" />
     <Image Include="..\..\Pictures\oledSwitch.jpg" />
     <Image Include="pop_cat.png" />
   </ItemGroup>

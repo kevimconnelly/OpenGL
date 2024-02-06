@@ -84,27 +84,29 @@ int main()
 
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
-	Texture popCat("pop_cat.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture popCat("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	popCat.texUnit(shaderProgram, "tex0", 0);
 
 	float rotation = 0.0f;
 	double prevTime = glfwGetTime();
 
+	glEnable(GL_DEPTH_TEST);
+
 	int widthImg, heightImg, numColCh;
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* bytes = stbi_load("pop_cat.png", &widthImg, &heightImg, &numColCh, 0);
+	unsigned char* bytes = stbi_load("brick.png", &widthImg, &heightImg, &numColCh, 0);
 
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Tell openGL which shader program to use
 		shaderProgram.Activate();
 
 		double crntTime = glfwGetTime();
-		if (crntTime - prevTime >= 1 / 60)
+		if (crntTime - prevTime >= (1.0f / 60.0f))
 		{
 			rotation += 0.5f;
 			prevTime = crntTime;
