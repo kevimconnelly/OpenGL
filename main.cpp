@@ -12,7 +12,8 @@
 #include"VBO.h"
 #include"EBO.h"
 
-
+const unsigned int width = 800;
+const unsigned int height = 800;
 
 // Define the vertices of the triangle
 GLfloat vertices[] =
@@ -41,7 +42,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create window and specify size, name
-	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(width, height, "YoutubeOpenGL", NULL, NULL);
 
 	// Error check in case window fails to create
 	if (window == NULL)
@@ -59,7 +60,7 @@ int main()
 	gladLoadGL();
 
 	// Specify the viewport of OpenGL and its size
-	glViewport(0, 0, 800, 800);
+	glViewport(0, 0, width, height);
 
 	Shader shaderProgram("default.vert", "default.frag");
 
@@ -93,6 +94,14 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell openGL which shader program to use
 		shaderProgram.Activate();
+
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 proj = glm::mat4(1.0f);
+		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		proj = glm::perspective(glm::radians(45.0f), (float)(width / height), 0.1f, 100.0f);
+
+
 		glUniform1f(uniID, 0.5f);
 
 		popCat.Bind();
