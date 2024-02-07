@@ -103,6 +103,7 @@ int main()
 		// Tell openGL which shader program to use
 		shaderProgram.Activate();
 
+		camera.Inputs(window); 
 		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
 		popCat.Bind();
