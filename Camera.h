@@ -30,7 +30,7 @@ class Camera
 		Camera(int width, int hieght, glm::vec3 position);
 
 		void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
-		void Matrix(float FOVdeg, float nearPlane, float farPlane, Shader& shader, const char* uniform);
+		void Matrix(Shader& shader, const char* uniform);
 		void Inputs(GLFWwindow* window);
 };	
 #endif
