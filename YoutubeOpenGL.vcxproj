@@ -166,6 +166,8 @@
   <ItemGroup>
     <Image Include="..\..\..\Downloads\brick.png" />
     <Image Include="..\..\Pictures\oledSwitch.jpg" />
+    <Image Include="planks.png" />
+    <Image Include="planksSpec.png" />
     <Image Include="pop_cat.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
