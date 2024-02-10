@@ -27,6 +27,8 @@ uniform vec3 camPos;
 vec4 pointLight()
 {
 	vec3 lightVec = lightPos - crntPos;
+
+	// Intensity of the light with respect to distance
 	float dist = length(lightVec);
 	float a = 0.05;
 	float b = 0.1;
@@ -89,6 +91,7 @@ vec4 spotLight()
 	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 16);
 	float specular = specAmount * specularLight;
 
+	// Calculates the intensity of the crntPos based on its angle to the center of the light cone
 	float angle = dot(vec3(0.0f, -1.0f, 0.0f), -lightDirection);
 	float inten = clamp((angle - outerCone) / (innerCone - outerCone), 0.0f, 1.0f);
 
