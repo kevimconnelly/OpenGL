@@ -31,7 +31,6 @@ void main()
 {
 	// calculates current position
 	crntPos = vec3(model * vec4(aPos, 1.0f));
-	
 
 	// Assigns the colors from the Vertex Data to "color"
 	color = aColor;
@@ -39,7 +38,6 @@ void main()
 	Normal = aNormal;
 	// Assigns the texture coordinates from the Vertex Data to "texCoord"
 	texCoord = aTex;
-	
 
 	// Outputs the positions/coordinates of all vertices
 	gl_Position = camMatrix * vec4(crntPos, 1.0);
