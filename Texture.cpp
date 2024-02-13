@@ -2,7 +2,7 @@
 
 Texture::Texture(const char* image, const char* texType, GLuint slot, GLenum format, GLenum pixelType)
 {
-	type = GL_TEXTURE_2D;
+	type = texType;
 
 	int widthImg, heightImg, numColCh;
 	stbi_set_flip_vertically_on_load(true);
