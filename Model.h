@@ -17,6 +17,8 @@ private:
 	const char* file;
 	std::vector<unsigned char> data;
 	json JSON;
+
+	std::vector<unsigned char> getData();
 };
 
 #endif
