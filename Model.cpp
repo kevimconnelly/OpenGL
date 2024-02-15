@@ -104,6 +104,30 @@ std::vector<GLuint> Model::getIndices(json accessor)
 	return indices;
 }
 
+std::vector<Vertex> Model::assembleVertices
+(
+	std::vector<glm::vec3> positions,
+	std::vector<glm::vec3> normals,
+	std::vector<glm::vec2> texUVs
+)
+{
+	std::vector<Vertex> vertices;
+	for (int i = 0; i < positions.size(); i++)
+	{
+		vertices.push_back
+		(
+			Vertex
+			{
+				positions[i],
+				normals[i],
+				glm::vec3(1.0f, 1.0f, 1.0f),
+				texUVs[i]
+			}
+		);
+	}
+	return vertices;
+}
+
 std::vector<glm::vec2> Model::groupFloatsVec2(std::vector<float> floatVec)
 {
 	std::vector<glm::vec2> vectors;
