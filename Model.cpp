@@ -103,4 +103,31 @@ std::vector<GLuint> Model::getIndices(json accessor)
 
 	return indices;
 }
+
+std::vector<glm::vec2> Model::groupFloatsVec2(std::vector<float> floatVec)
+{
+	std::vector<glm::vec2> vectors;
+	for (int i = 0; i < floatVec.size(); i)
+	{
+		vectors.push_back(glm::vec2(floatVec[i++], floatVec[i++]));
+	}
+	return vectors;
+}
+std::vector<glm::vec3> Model::groupFloatsVec3(std::vector<float> floatVec)
+{
+	std::vector<glm::vec3> vectors;
+	for (int i = 0; i < floatVec.size(); i)
+	{
+		vectors.push_back(glm::vec3(floatVec[i++], floatVec[i++], floatVec[i++]));
+	}
+	return vectors;
+}
+std::vector<glm::vec4> Model::groupFloatsVec4(std::vector<float> floatVec)
+{
+	std::vector<glm::vec4> vectors;
+	for (int i = 0; i < floatVec.size(); i)
+	{
+		vectors.push_back(glm::vec4(floatVec[i++], floatVec[i++], floatVec[i++], floatVec[i++]));
+	}
+	return vectors;
 }
