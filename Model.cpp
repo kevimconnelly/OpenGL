@@ -53,3 +53,54 @@ std::vector<float> Model::getFloats(json accessor)
 
 	return floatVec;
 }
+
+std::vector<GLuint> Model::getIndices(json accessor)
+{
+	std::vector<GLuint> indices;
+
+	// Get properties from the accessor
+	unsigned int buffViewInd = accessor.value("bufferView", 0);
+	unsigned int count = accessor["count"];
+	unsigned int accByteOffset = accessor.value("byteOffset", 0);
+	unsigned int componentType = accessor["componentType"];
+
+	// Get properties from the bufferView
+	json bufferView = JSON["bufferViews"][buffViewInd];
+	unsigned int byteOffset = bufferView["byteOffset"];
+
+	// Get indices with regards to their type: unsigned int, unsigned short, or short
+	unsigned int beginningOfData = byteOffset + accByteOffset;
+	if (componentType == 5125)
+	{
+		for (unsigned int i = beginningOfData; i < byteOffset + accByteOffset + count * 4; i)
+		{
+			unsigned char bytes[] = { data[i++], data[i++], data[i++], data[i++] };
+			unsigned int value;
+			std::memcpy(&value, bytes, sizeof(unsigned int));
+			indices.push_back((GLuint)value);
+		}
+	}
+	else if (componentType == 5123)
+	{
+		for (unsigned int i = beginningOfData; i < byteOffset + accByteOffset + count * 2; i)
+		{
+			unsigned char bytes[] = { data[i++], data[i++] };
+			unsigned short value;
+			std::memcpy(&value, bytes, sizeof(unsigned short));
+			indices.push_back((GLuint)value);
+		}
+	}
+	else if (componentType == 5122)
+	{
+		for (unsigned int i = beginningOfData; i < byteOffset + accByteOffset + count * 2; i)
+		{
+			unsigned char bytes[] = { data[i++], data[i++] };
+			short value;
+			std::memcpy(&value, bytes, sizeof(short));
+			indices.push_back((GLuint)value);
+		}
+	}
+
+	return indices;
+}
+}
