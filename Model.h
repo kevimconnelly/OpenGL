@@ -19,11 +19,18 @@ private:
 	json JSON;
 
 	std::vector<Mesh> meshes;
+	std::vector<glm::vec3> translationsMeshes;
+	std::vector<glm::quat> rotationsMeshes;
+	std::vector<glm::vec3> scalesMeshes;
+	std::vector<glm::mat4> matricesMeshes;
 
 	std::vector<std::string> loadedTexName;
 	std::vector<Texture> loadedTex;
 
 	void loadMesh(unsigned int indMesh);
+
+	// Traverses a node recursively, so it essentially traverses all connected nodes
+	void traverseNode(unsigned int nextNode, glm::mat4 matrix = glm::mat4(1.0f));
 
 	std::vector<unsigned char> getData();
 	std::vector<float> getFloats(json accessor);
