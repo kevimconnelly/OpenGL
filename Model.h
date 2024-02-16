@@ -18,9 +18,13 @@ private:
 	std::vector<unsigned char> data;
 	json JSON;
 
+	std::vector<std::string> loadedTexName;
+	std::vector<Texture> loadedTex;
+
 	std::vector<unsigned char> getData();
 	std::vector<float> getFloats(json accessor);
 	std::vector<GLuint> getIndices(json accessor);
+	std::vector<Texture>getTextures();
 
 	std::vector<Vertex> assembleVertices
 	(
