@@ -47,6 +47,7 @@ int main()
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
