@@ -18,8 +18,12 @@ private:
 	std::vector<unsigned char> data;
 	json JSON;
 
+	std::vector<Mesh> meshes;
+
 	std::vector<std::string> loadedTexName;
 	std::vector<Texture> loadedTex;
+
+	void loadMesh(unsigned int indMesh);
 
 	std::vector<unsigned char> getData();
 	std::vector<float> getFloats(json accessor);
