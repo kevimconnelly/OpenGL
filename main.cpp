@@ -36,6 +36,9 @@ int main()
 	glViewport(0, 0, width, height);
 
 	Shader shaderProgram("default.vert", "default.frag");
+	// Shader for the outlining model
+	Shader outliningProgram("outlining.vert", "outlining.frag");
+
 
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
@@ -47,7 +50,10 @@ int main()
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
+	// Enables the Stencil Buffer
+	glEnable(GL_STENCIL_TEST);
+	// Sets rules for outcomes of stecil tests
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
@@ -58,10 +64,24 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 		camera.Inputs(window); 
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+
+		// Make it so the stencil test always passes
+		glStencilFunc(GL_ALWAYS, 1, 0xFF);
+		// Enable modifying of the stencil buffer
+		glStencilMask(0xFF);
+		// Draw the normal model
+		model.Draw(shaderProgram, camera);
+
+		// Make it so only the pixels without the value 1 pass the test
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		// Disable modifying of the stencil buffer
+		glStencilMask(0x00);
+		// Disable the depth buffer
+		glDisable(GL_DEPTH_TEST);
 
 		model.Draw(shaderProgram, camera);
 
