@@ -63,7 +63,7 @@ int main()
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 		camera.Inputs(window); 
@@ -83,7 +83,19 @@ int main()
 		// Disable the depth buffer
 		glDisable(GL_DEPTH_TEST);
 
+		outliningProgram.Activate();
+		glUniform1f(glGetUniformLocation(outliningProgram.ID, "outlining"), 1.08f);
+		model.Draw(outliningProgram, camera);
+
+
 		model.Draw(shaderProgram, camera);
+
+		// Enable modifying of the stencil buffer
+		glStencilMask(0xFF);
+		// Clear stencil buffer
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		// Enable the depth buffer
+		glEnable(GL_DEPTH_TEST);
 
 		glfwSwapBuffers(window);
 
